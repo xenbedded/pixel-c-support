@@ -1,0 +1,6 @@
+[submodule "hardware/debug_bridge_r2/schlib"]
+	path = hardware/debug_bridge_r2/schlib
+	url = https://github.com/cpavlina/kicad-schlib
+[submodule "hardware/debug_bridge_r2/pcblib"]
+	path = hardware/debug_bridge_r2/pcblib
+	url = https://github.com/cpavlina/kicad-pcblib
