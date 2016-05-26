@@ -1,4 +1,4 @@
-update=Wed 25 May 2016 03:11:02 PM EDT
+update=Thu 26 May 2016 05:53:58 PM EDT
 version=1
 last_client=kicad
 [cvpcb]
@@ -125,3 +125,4 @@ LibName82=schlib/library/Vishay
 LibName83=schlib/library/Xilinx
 LibName84=schlib/library/conn-assmann
 LibName85=schlib/library/Abracon
+LibName86=ais
