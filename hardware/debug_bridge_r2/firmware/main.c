@@ -7,6 +7,8 @@
 static void set_host_mode(void);
 static void set_dev_mode(void);
 
+// Reset hubs for 500ms if the state changes. Stores the previous state.
+static void reset_hubs_on_change(enum vbus_mode mode);
 
 int main(void)
 {
@@ -15,34 +17,10 @@ int main(void)
     init_adc(&vbus_adc_callback);
     sei();
 
-    enum vbus_mode last_mode = VBUS_WAIT;
-    uint16_t hub_reset_timestamp = 0;
-    bool hub_reset = false;
-    bool hub_reset_overflow = false;
-    static const uint16_t hub_reset_duration = 500u; // Time in ms to hold hubs in reset
-
     for(;;) {
         enum vbus_mode mode = get_current_vbus_mode();
-        uint16_t ticks = get_ticks();
 
-        // Hold hubs in reset briefly if the state has changed
-        if (mode != last_mode) {
-            set_hub_reset(true);
-            hub_reset_timestamp = ticks;
-            hub_reset_overflow = (hub_reset_timestamp + hub_reset_duration < ticks);
-            hub_reset = true;
-        } else if (hub_reset) {
-            bool done;
-            if (hub_reset_overflow) {
-                done = (ticks >= hub_reset_timestamp + hub_reset_duration) && (ticks < hub_reset_timestamp);
-            } else {
-                done = (ticks >= hub_reset_timestamp + hub_reset_duration);
-            }
-            if (done) {
-                set_hub_reset(false);
-                hub_reset = false;
-            }
-        }
+        reset_hubs_on_change(mode);
 
         switch(get_current_vbus_mode()) {
         case VBUS_WAIT:
@@ -63,7 +41,7 @@ int main(void)
 
         case VBUS_DEBUG_ONLY:
             // Blink LED
-            if (ticks % 333 < 166) {
+            if (get_ticks() % 333 < 166) {
                 set_leds_dev();
             } else {
                 set_leds_off();
@@ -102,3 +80,33 @@ static void set_dev_mode(void)
 }
 
 
+static void reset_hubs_on_change(enum vbus_mode mode)
+{
+    static const uint16_t hub_reset_duration = 500u; // Time in ms to hold hubs in reset
+
+    static enum vbus_mode last_mode = VBUS_WAIT;
+    static uint16_t hub_reset_timestamp = 0;
+    static bool hub_reset = false;
+    static bool hub_reset_overflow = false;
+
+    uint16_t ticks = get_ticks();
+
+    // Hold hubs in reset briefly if the state has changed
+    if (mode != last_mode) {
+        set_hub_reset(true);
+        hub_reset_timestamp = ticks;
+        hub_reset_overflow = (hub_reset_timestamp + hub_reset_duration < ticks);
+        hub_reset = true;
+    } else if (hub_reset) {
+        bool done;
+        if (hub_reset_overflow) {
+            done = (ticks >= hub_reset_timestamp + hub_reset_duration) && (ticks < hub_reset_timestamp);
+        } else {
+            done = (ticks >= hub_reset_timestamp + hub_reset_duration);
+        }
+        if (done) {
+            set_hub_reset(false);
+            hub_reset = false;
+        }
+    }
+}
