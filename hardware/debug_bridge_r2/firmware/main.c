@@ -22,7 +22,7 @@ int main(void)
 
         reset_hubs_on_change(mode);
 
-        switch(get_current_vbus_mode()) {
+        switch(mode) {
         case VBUS_WAIT:
             continue;
 
