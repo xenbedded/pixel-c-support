@@ -1,4 +1,5 @@
-SOURCES := main.c
+SOURCES := main.c hardware.c
+
 OBJECTS := $(patsubst %.c,%.o,${SOURCES})
 
 CC := avr-gcc
