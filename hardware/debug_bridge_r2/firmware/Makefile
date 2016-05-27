@@ -5,7 +5,7 @@ CC := avr-gcc
 OBJDUMP := avr-objdump
 SIZE := avr-size
 
-CFLAGS := -O2 -g -Wall -Wextra -mmcu=attiny24a
+CFLAGS := -O2 -flto -g -Wall -Wextra -mmcu=attiny24a
 LDFLAGS :=
 
 .PHONY: all clean
