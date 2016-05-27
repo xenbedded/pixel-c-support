@@ -8,14 +8,8 @@
 void init_ports(void);
 
 /// Initialize ADC
-void init_adc(void);
-
-/// Return true if a new set of samples is ready
-bool samples_ready(void);
-
-/// Get both ADC samples.
-/// Only call after samples_ready() returns true for the first time after init.
-void get_adc_samples(uint16_t *vbus_pixc, uint16_t *vbus_dbg);
+/// @param callback - callback function to be called when a pair of samples has been acquired.
+void init_adc(void (*callback)(uint16_t pixc, uint16_t dbg));
 
 /// Return ADC value for floating-point voltage
 #define ADC_VAL(voltage) ((uint16_t)(1023.0 * (voltage) / 6.6) & 0x3ffu)

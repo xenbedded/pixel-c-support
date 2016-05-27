@@ -2,6 +2,7 @@
 #include "pin_io.h"
 #include <avr/interrupt.h>
 #include <util/atomic.h>
+#include <stdlib.h>
 
 void init_ports(void)
 {
@@ -95,12 +96,10 @@ void set_usb_mux_normal(void)
 }
 
 
-static volatile bool        have_samples = false;
-static volatile uint16_t    adc_value_pixc = 0;
-static volatile uint16_t    adc_value_dbg = 0;
+static void (* volatile adc_callback)(uint16_t pixc, uint16_t dbg) = NULL;
 
 
-void init_adc(void)
+void init_adc(void (*callback)(uint16_t pixc, uint16_t dbg))
 {
     ADMUX = MUX_VBUS_PIXC_SENSE;    // Start on first input, ref = vcc
 
@@ -112,7 +111,7 @@ void init_adc(void)
     DIDR0 = (1 << PIN_VBUS_DBG_SENSE) | (1 << PIN_VBUS_PIXC_SENSE);
 
     // Start conversion
-    have_samples = false;
+    adc_callback = callback;
     ADCSRA |= (1 << ADSC);
 }
 
@@ -120,6 +119,8 @@ void init_adc(void)
 ISR(ADC_vect)
 {
     static uint8_t channel_id = 0;
+    static uint16_t adc_value_pixc = 0;
+    static uint16_t adc_value_dbg = 0;
 
     switch(channel_id)
     {
@@ -132,23 +133,8 @@ ISR(ADC_vect)
         adc_value_dbg = ADC;
         ADMUX = MUX_VBUS_PIXC_SENSE;
         channel_id = 0;
-        have_samples = true;
+        adc_callback(adc_value_pixc, adc_value_dbg);
         break;
     }
     ADCSRA |= (1 << ADSC);
-}
-
-
-bool samples_ready(void)
-{
-    return have_samples;
-}
-
-
-void get_adc_samples(uint16_t *vbus_pixc, uint16_t *vbus_dbg)
-{
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        *vbus_pixc = adc_value_pixc;
-        *vbus_dbg = adc_value_dbg;
-    }
 }
