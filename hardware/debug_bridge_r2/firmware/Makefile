@@ -39,4 +39,4 @@ program: fw.elf
 	avrdude -p ${AVRDUDE_CHIP} -c ${AVRDUDE_PROGRAMMER} -U flash:w:fw.elf
 
 clean:
-	rm -f ${OBJECTS}
+	rm -f ${OBJECTS} fw.elf disasm.txt
