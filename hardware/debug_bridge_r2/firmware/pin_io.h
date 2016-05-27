@@ -72,6 +72,9 @@
 /// Write 0 to a pin
 #define PLOW(pin)       do { _PORT_FOR_PIN(pin) &= ~(1 << (_NUM_FOR_PIN(pin))); } while (0)
 
+/// Write v to a pin
+#define PVAL(pin, val)  do { if (val) { PHIGH(pin); } else { PLOW(pin); } } while (0)
+
 /// Read a pin
 #define PGET(pin)       ( _PIN_FOR_PIN(pin) & (1 << (_NUM_FOR_PIN(pin))) )
 

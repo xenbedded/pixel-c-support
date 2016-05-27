@@ -151,11 +151,7 @@ void set_usb_mux_normal(void)
 
 void set_hub_reset(bool val)
 {
-    if (val) {
-        PLOW(HUBnRST);
-    } else {
-        PHIGH(HUBnRST);
-    }
+    PVAL(HUBnRST, !val);
 }
 
 
