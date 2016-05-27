@@ -39,5 +39,7 @@ void set_usb_mux_normal(void);  ///< Set USB mux to normal mode (PixC is host)
 
 
 void set_hub_reset(bool val);   ///< Set whether the hubs are held in reset
+void set_hub1_vbus(bool val);   ///< Set whether hub 1 (downstream of pixel C, for host mode) sees vbus
+void set_hub2_vbus(bool val);   ///< Set whether hub 2 (upstream of pixel C, for device mode) sees vbus
 
 #endif // _HARDWARE_H

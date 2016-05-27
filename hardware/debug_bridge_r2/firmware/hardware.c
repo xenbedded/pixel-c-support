@@ -155,6 +155,18 @@ void set_hub_reset(bool val)
 }
 
 
+void set_hub1_vbus(bool val)
+{
+    PVAL(VBUSDET1, val);
+}
+
+
+void set_hub2_vbus(bool val)
+{
+    PVAL(VBUSDET2, val);
+}
+
+
 static void (* volatile adc_callback)(uint16_t pixc, uint16_t dbg) = NULL;
 
 
