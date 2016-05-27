@@ -1,4 +1,4 @@
-SOURCES := main.c hardware.c
+SOURCES := main.c hardware.c vbus.c
 
 OBJECTS := $(patsubst %.c,%.o,${SOURCES})
 
