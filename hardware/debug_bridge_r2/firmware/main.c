@@ -11,6 +11,7 @@ static void set_dev_mode(void);
 int main(void)
 {
     init_ports();
+    init_tick_timer();
     init_adc(&vbus_adc_callback);
     sei();
 
@@ -33,8 +34,12 @@ int main(void)
             break;
 
         case VBUS_DEBUG_ONLY:
-            // TODO: blink LED?
-            set_leds_dev();
+            // Blink LED
+            if (get_ticks() % 333 < 166) {
+                set_leds_dev();
+            } else {
+                set_leds_off();
+            }
             set_charge_disabled();
             set_dev_mode();
             break;

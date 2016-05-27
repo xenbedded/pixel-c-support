@@ -41,6 +41,37 @@ void init_ports(void)
 }
 
 
+void init_tick_timer(void)
+{
+    // Waveform mode = CTC (clear timer on compare match)
+    TCCR0A = (1 << WGM01);
+    // Prescaler = 64, fcpu = 8 MHz gives ftimer = 125 kHz
+    TCCR0B = (1 << CS01) | (1 << CS00);
+    // Count to 124 gives 125 kHz / 125 = 1 kHz overflows
+    OCR0A = 124;
+    // Interrupt on compare match
+    TIMSK0 = (1 << OCIE0A);
+}
+
+
+static volatile uint16_t ticks = 0;
+
+
+ISR(TIM0_COMPA_vect)
+{
+    ++ticks;
+}
+
+
+uint16_t get_ticks(void)
+{
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        return ticks;
+    }
+    return 0; // shut up warning
+}
+
+
 void set_leds_host(void)
 {
     PHIGH(LED_A);

@@ -7,6 +7,12 @@
 /// Initialize GPIO ports to I/O setting and default value
 void init_ports(void);
 
+/// Initialize a 1ms tick timer
+void init_tick_timer(void);
+
+/// Return number of 1ms ticks elapsed.
+uint16_t get_ticks(void);
+
 /// Initialize ADC
 /// @param callback - callback function to be called when a pair of samples has been acquired.
 void init_adc(void (*callback)(uint16_t pixc, uint16_t dbg));
