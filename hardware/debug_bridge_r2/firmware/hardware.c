@@ -149,6 +149,16 @@ void set_usb_mux_normal(void)
 }
 
 
+void set_hub_reset(bool val)
+{
+    if (val) {
+        PLOW(HUBnRST);
+    } else {
+        PHIGH(HUBnRST);
+    }
+}
+
+
 static void (* volatile adc_callback)(uint16_t pixc, uint16_t dbg) = NULL;
 
 
