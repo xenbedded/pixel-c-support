@@ -84,6 +84,28 @@ bool is_charge_enabled(void)
 }
 
 
+void pull_cc1(bool val)
+{
+    if (val) {
+        PLOW(CC1);
+        POUTPUT(CC1);
+    } else {
+        PINPUT(CC1);
+    }
+}
+
+
+void pull_cc2(bool val)
+{
+    if (val) {
+        PLOW(CC2);
+        POUTPUT(CC2);
+    } else {
+        PINPUT(CC2);
+    }
+}
+
+
 void set_usb_mux_debug(void)
 {
     PHIGH(USBMUX);

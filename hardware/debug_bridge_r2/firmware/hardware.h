@@ -24,6 +24,10 @@ void set_charge_disabled(void); ///< Disable charging from debug port to PixC
 bool is_charge_enabled(void);   ///< Return whether charging is enabled
 
 
+void pull_cc1(bool val);        ///< Pull down CC1 if true, else let it float
+void pull_cc2(bool val);        ///< Pull down CC2 if true, else let it float
+
+
 void set_usb_mux_debug(void);   ///< Set USB mux to debug mode (PixC is device)
 void set_usb_mux_normal(void);  ///< Set USB mux to normal mode (PixC is host)
 
