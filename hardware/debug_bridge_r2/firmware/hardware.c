@@ -103,7 +103,9 @@ static volatile uint16_t    adc_value_dbg = 0;
 void init_adc(void)
 {
     ADMUX = MUX_VBUS_PIXC_SENSE;    // Start on first input, ref = vcc
-    ADCSRA = (1 << ADEN) | (1 << ADIE) | /* ADPS */ 0;
+
+    // Clock is 8 MHz. Divide by 64 to get within the 50..200kHz range
+    ADCSRA = (1 << ADEN) | (1 << ADIE) | (1 << ADPS2) | (1 << ADPS1);
     ADCSRB = 0;
 
     // Disable digital input buffers on analog pins
