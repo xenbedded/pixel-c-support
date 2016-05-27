@@ -97,6 +97,7 @@ static void reset_hubs_on_change(enum vbus_mode mode)
         hub_reset_timestamp = ticks;
         hub_reset_overflow = (hub_reset_timestamp + hub_reset_duration < ticks);
         hub_reset = true;
+        last_mode = mode;
     } else if (hub_reset) {
         bool done;
         if (hub_reset_overflow) {
