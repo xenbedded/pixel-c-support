@@ -75,4 +75,7 @@
 /// Read a pin
 #define PGET(pin)       ( _PIN_FOR_PIN(pin) & (1 << (_NUM_FOR_PIN(pin))) )
 
+/// Read a pin's output value
+#define PGETOUT(pin)    ( _PORT_FOR_PIN(pin) & (1 << (_NUM_FOR_PIN(pin))) )
+
 #endif // _PIN_IO_H

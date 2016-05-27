@@ -40,6 +40,61 @@ void init_ports(void)
 }
 
 
+void set_leds_host(void)
+{
+    PHIGH(LED_A);
+    PLOW(LED_B);
+    POUTPUT(LED_A);
+    POUTPUT(LED_B);
+}
+
+
+void set_leds_dev(void)
+{
+    PLOW(LED_A);
+    PHIGH(LED_B);
+    POUTPUT(LED_A);
+    POUTPUT(LED_B);
+}
+
+
+void set_leds_off(void)
+{
+    PINPUT(LED_A);
+    PINPUT(LED_B);
+}
+
+
+void set_charge_enabled(void)
+{
+    PHIGH(DBG_PWR);
+}
+
+
+void set_charge_disabled(void)
+{
+    PLOW(DBG_PWR);
+}
+
+
+bool is_charge_enabled(void)
+{
+    return PGETOUT(DBG_PWR);
+}
+
+
+void set_usb_mux_debug(void)
+{
+    PHIGH(USBMUX);
+}
+
+
+void set_usb_mux_normal(void)
+{
+    PLOW(USBMUX);
+}
+
+
 static volatile bool        have_samples = false;
 static volatile uint16_t    adc_value_pixc = 0;
 static volatile uint16_t    adc_value_dbg = 0;
