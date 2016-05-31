@@ -1,4 +1,4 @@
-update=Thu 26 May 2016 05:53:58 PM EDT
+update=Tue 31 May 2016 09:54:07 AM EDT
 version=1
 last_client=kicad
 [cvpcb]
@@ -6,17 +6,6 @@ version=1
 NetIExt=net
 [general]
 version=1
-[schematic_editor]
-version=1
-PageLayoutDescrFile=schlib/page_layouts/basic.kicad_wks
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=60
-ERC_TestSimilarLabels=1
 [pcbnew]
 version=1
 PageLayoutDescrFile=pcblib/page_layouts/empty.kicad_wks
@@ -126,3 +115,14 @@ LibName83=schlib/library/Xilinx
 LibName84=schlib/library/conn-assmann
 LibName85=schlib/library/Abracon
 LibName86=ais
+[schematic_editor]
+version=1
+PageLayoutDescrFile=schlib/page_layouts/basic.kicad_wks
+PlotDirectoryName=outputs
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
+ERC_TestSimilarLabels=1

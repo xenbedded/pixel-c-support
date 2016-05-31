@@ -93,7 +93,7 @@ encoding utf-8
 Sheet 1 1
 Title "Pixel C Debug Adapter"
 Date "2016-05-27"
-Rev "1.0"
+Rev "2.0"
 Comp "AIS (MDS)"
 Comment1 ""
 Comment2 "                 MIT license (see LICENSE.txt)"
