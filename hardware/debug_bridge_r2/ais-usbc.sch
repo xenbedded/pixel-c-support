@@ -96,9 +96,9 @@ Date "2016-05-27"
 Rev "1.0"
 Comp "AIS (MDS)"
 Comment1 ""
-Comment2 ""
-Comment3 ""
-Comment4 ""
+Comment2 "                 MIT license (see LICENSE.txt)"
+Comment3 "                 Chris Pavlina <pavlina.chris@gmail.com>"
+Comment4 "                 Copyright (c) 2016 Assured Information Security"
 $EndDescr
 $Comp
 L CONN-DX07P024MJ1R1500 J1

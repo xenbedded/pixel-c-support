@@ -1,3 +1,28 @@
+// Copyright (c) 2016 Assured Information Security, Inc.
+// Author: Chris Pavlina <pavlina.chris@gmail.com>
+//
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
+//
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+/// @file pin_io.h
+/// Pin definitions and access macros.
+
 #ifndef _PIN_IO_H
 #define _PIN_IO_H 1
 
@@ -42,20 +67,21 @@
 #define PIN_MCUnRST         3
 
 
-/// Join and evaluate two macros
+/// @internal helper macro for _CONCAT
 #define _HELP_CONCAT(x, y) x ## y
+/// @internal concatenate two macros
 #define _CONCAT(x, y)  _HELP_CONCAT(x, y)
 
-/// Extract and return the DDR register for a pin by name
+/// @internal extract and return the DDR register for a pin by name
 #define _DDR_FOR_PIN(pin) _CONCAT(DDR, _CONCAT(PRT_, pin))
 
-/// Extract and return the PORT register for a pin by name
+/// @internal extract and return the PORT register for a pin by name
 #define _PORT_FOR_PIN(pin) _CONCAT(PORT, _CONCAT(PRT_, pin))
 
-/// Extract and return the PIN register for a pin by name
+/// @internal extract and return the PIN register for a pin by name
 #define _PIN_FOR_PIN(pin) _CONCAT(PIN, _CONCAT(PRT_, pin))
 
-/// Extract and return the pin number for a pin by name
+/// @internal extract and return the pin number for a pin by name
 #define _NUM_FOR_PIN(pin) _CONCAT(PIN_, pin)
 
 
