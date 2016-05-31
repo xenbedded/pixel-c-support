@@ -42,7 +42,7 @@ static enum vbus_mode get_vbus_mode(uint16_t vbus_pixc, uint16_t vbus_dbg)
 
     bool diode = (vbus_dbg > (vbus_pixc - adc_diode_max)) &&
                  (vbus_dbg < (vbus_pixc - adc_diode_min)) &&
-                 is_charge_enabled();
+                 !is_charge_enabled();
 
     //  PIXC    DBG     DIODE   OUT
     //  0       0       0       VBUS_NONE
