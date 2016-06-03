@@ -1,4 +1,4 @@
-update=Tue 31 May 2016 09:54:07 AM EDT
+update=Fri 03 Jun 2016 12:09:20 PM EDT
 version=1
 last_client=kicad
 [cvpcb]
@@ -117,12 +117,12 @@ LibName85=schlib/library/Abracon
 LibName86=ais
 [schematic_editor]
 version=1
-PageLayoutDescrFile=schlib/page_layouts/basic.kicad_wks
+PageLayoutDescrFile=ais.kicad_wks
 PlotDirectoryName=outputs
 SubpartIdSeparator=0
 SubpartFirstId=65
 NetFmtName=
 SpiceForceRefPrefix=0
 SpiceUseNetNumbers=0
-LabSize=60
+LabSize=50
 ERC_TestSimilarLabels=1
