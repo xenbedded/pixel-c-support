@@ -1,5 +1,5 @@
 M48
-;DRILL file {KiCad (2016-05-30 BZR 6864, Git 09dc517)-product} date Tue May 31 17:36:22 2016
+;DRILL file {KiCad (2016-06-03 BZR 6882, Git b4ad18a)-product} date Fri Jun  3 12:20:59 2016
 ;FORMAT={-:-/ absolute / inch / decimal}
 FMAT,2
 INCH,TZ
@@ -70,7 +70,6 @@ X1.5783Y-0.4506
 X1.5873Y-0.6485
 X1.6142Y-0.2067
 X1.6142Y-0.4626
-X1.6142Y-0.8268
 X1.6277Y-0.6176
 X1.6353Y-0.5113
 X1.6732Y-0.5118
