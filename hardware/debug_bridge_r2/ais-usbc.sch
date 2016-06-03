@@ -92,7 +92,7 @@ $Descr USLegal 14000 8500
 encoding utf-8
 Sheet 1 1
 Title "Pixel C Debug Adapter"
-Date "2016-05-27"
+Date "2016-06-03"
 Rev "2.0"
 Comp "AIS (MDS)"
 Comment1 ""
@@ -2174,4 +2174,6 @@ Wire Wire Line
 	4000 3000 4000 1900
 Wire Wire Line
 	4000 1900 1400 1900
+Text Notes 9950 5050 0    50   ~ 0
+TODO: oscillator datasheet specifies min load 10k,\nbut I think that's dubious. When boards are made,\ntest with U7 removed and bypassed in->out; if clock\nwaveform is acceptable remove U7.
 $EndSCHEMATC
