@@ -226,7 +226,8 @@ ISR(ADC_vect)
         adc_value_dbg = ADC;
         ADMUX = MUX_VBUS_PIXC_SENSE;
         channel_id = 0;
-        adc_callback(adc_value_pixc, adc_value_dbg);
+        if (adc_callback)
+            adc_callback(adc_value_pixc, adc_value_dbg);
         break;
     }
     ADCSRA |= (1 << ADSC);
