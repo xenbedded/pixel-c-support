@@ -9,10 +9,11 @@ AVRDUDE := avrdude
 
 GCC_CHIP=attiny48
 AVRDUDE_CHIP=t48
+F_CPU=8000000
 
 AVRDUDE_PROGRAMMER=atmelice_isp
 
-CFLAGS := -O2 -flto -g -Wall -Wextra -mmcu=${GCC_CHIP}
+CFLAGS := -O2 -flto -g -Wall -Wextra -mmcu=${GCC_CHIP} -DF_CPU=${F_CPU}uL
 LDFLAGS :=
 
 .PHONY: all clean program fuses

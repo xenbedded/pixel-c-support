@@ -163,9 +163,9 @@ void pull_cc1(enum CC_PULL_TYPE val)
         break;
     case CC_MID:
         PLOW(CC1PD);
+        POUTPUT(CC1PD);
         PHIGH(CC1PU);
         POUTPUT(CC1PU);
-        POUTPUT(CC1PD);
         break;
     }
 }
@@ -194,9 +194,9 @@ void pull_cc2(enum CC_PULL_TYPE val)
         break;
     case CC_MID:
         PLOW(CC2PD);
+        POUTPUT(CC2PD);
         PHIGH(CC2PU);
         POUTPUT(CC2PU);
-        POUTPUT(CC2PD);
         break;
     }
 }
