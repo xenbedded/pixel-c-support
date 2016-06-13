@@ -28,10 +28,12 @@
 
 void init_ports(void)
 {
-    DDRA = 0;
     DDRB = 0;
-    PORTA = 0;
+    DDRC = 0;
+    DDRD = 0;
     PORTB = 0;
+    PORTC = 0;
+    PORTD = 0;
 
     // No LEDs by default
     PINPUT(LED_A);
@@ -58,17 +60,18 @@ void init_ports(void)
     PINPUT(VBUS_DBG_SENSE);
 
     // USB-C CC pins
-    PINPUT(CC1);
-    PINPUT(CC2);
+    PINPUT(CC1PD);
+    PINPUT(CC2PD);
+    PINPUT(CC1PU);
+    PINPUT(CC2PU);
 }
 
 
 void init_tick_timer(void)
 {
     // Waveform mode = CTC (clear timer on compare match)
-    TCCR0A = (1 << WGM01);
     // Prescaler = 64, fcpu = 8 MHz gives ftimer = 125 kHz
-    TCCR0B = (1 << CS01) | (1 << CS00);
+    TCCR0A = (1 << CTC0) | (1 << CS01) | (1 << CS00);
     // Count to 124 gives 125 kHz / 125 = 1 kHz overflows
     OCR0A = 124;
     // Interrupt on compare match
@@ -79,7 +82,7 @@ void init_tick_timer(void)
 static volatile uint16_t ticks = 0;
 
 
-ISR(TIM0_COMPA_vect)
+ISR(TIMER0_COMPA_vect)
 {
     ++ticks;
 }
@@ -137,24 +140,64 @@ bool is_charge_enabled(void)
 }
 
 
-void pull_cc1(bool val)
+void pull_cc1(enum CC_PULL_TYPE val)
 {
-    if (val) {
-        PLOW(CC1);
-        POUTPUT(CC1);
-    } else {
-        PINPUT(CC1);
+    switch(val) {
+    case CC_OPEN:
+        PLOW(CC1PD);
+        PLOW(CC1PU);
+        PINPUT(CC1PD);
+        PINPUT(CC1PU);
+        break;
+    case CC_DOWN:
+        PLOW(CC1PD);
+        PLOW(CC1PU);
+        POUTPUT(CC1PD);
+        PINPUT(CC1PU);
+        break;
+    case CC_UP:
+        PLOW(CC1PD);
+        PHIGH(CC1PU);
+        POUTPUT(CC1PU);
+        PINPUT(CC1PD);
+        break;
+    case CC_MID:
+        PLOW(CC1PD);
+        PHIGH(CC1PU);
+        POUTPUT(CC1PU);
+        POUTPUT(CC1PD);
+        break;
     }
 }
 
 
-void pull_cc2(bool val)
+void pull_cc2(enum CC_PULL_TYPE val)
 {
-    if (val) {
-        PLOW(CC2);
-        POUTPUT(CC2);
-    } else {
-        PINPUT(CC2);
+    switch(val) {
+    case CC_OPEN:
+        PLOW(CC2PD);
+        PLOW(CC2PU);
+        PINPUT(CC2PD);
+        PINPUT(CC2PU);
+        break;
+    case CC_DOWN:
+        PLOW(CC2PD);
+        PLOW(CC2PU);
+        POUTPUT(CC2PD);
+        PINPUT(CC2PU);
+        break;
+    case CC_UP:
+        PLOW(CC2PD);
+        PHIGH(CC2PU);
+        POUTPUT(CC2PU);
+        PINPUT(CC2PD);
+        break;
+    case CC_MID:
+        PLOW(CC2PD);
+        PHIGH(CC2PU);
+        POUTPUT(CC2PU);
+        POUTPUT(CC2PD);
+        break;
     }
 }
 

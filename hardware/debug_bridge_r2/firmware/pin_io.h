@@ -28,43 +28,49 @@
 
 #include <avr/io.h>
 
-#define PRT_LED_A           A
-#define PIN_LED_A           6
+#define PRT_LED_A           B
+#define PIN_LED_A           2
 
-#define PRT_LED_B           A
-#define PIN_LED_B           4
+#define PRT_LED_B           C
+#define PIN_LED_B           0
 
-#define PRT_USBMUX          A
-#define PIN_USBMUX          5
+#define PRT_USBMUX          C
+#define PIN_USBMUX          7
 
-#define PRT_HUBnRST         A
-#define PIN_HUBnRST         3
+#define PRT_HUBnRST         D
+#define PIN_HUBnRST         0
 
-#define PRT_DBG_PWR         A
-#define PIN_DBG_PWR         0
+#define PRT_DBG_PWR         D
+#define PIN_DBG_PWR         2
 
-#define PRT_VBUSDET1        B
-#define PIN_VBUSDET1        2
+#define PRT_VBUSDET1        D
+#define PIN_VBUSDET1        1
 
-#define PRT_VBUSDET2        A
+#define PRT_VBUSDET2        C
 #define PIN_VBUSDET2        2
 
-#define PRT_VBUS_PIXC_SENSE A
-#define PIN_VBUS_PIXC_SENSE 1
-#define MUX_VBUS_PIXC_SENSE (1 << MUX0)
+#define PRT_VBUS_PIXC_SENSE C
+#define PIN_VBUS_PIXC_SENSE 3
+#define MUX_VBUS_PIXC_SENSE (3 << MUX0)
 
-#define PRT_VBUS_DBG_SENSE  A
-#define PIN_VBUS_DBG_SENSE  7
-#define MUX_VBUS_DBG_SENSE  ((1 << MUX0) | (1 << MUX1) | (1 << MUX2))
+#define PRT_VBUS_DBG_SENSE  C
+#define PIN_VBUS_DBG_SENSE  4
+#define MUX_VBUS_DBG_SENSE  (4 << MUX0)
 
-#define PRT_CC1             B
-#define PIN_CC1             1
+#define PRT_CC1PD           B
+#define PIN_CC1PD           6
 
-#define PRT_CC2             B
-#define PIN_CC2             0
+#define PRT_CC2PD           D
+#define PIN_CC2PD           5
 
-#define PRT_MCUnRST         B
-#define PIN_MCUnRST         3
+#define PRT_CC1PU           D
+#define PIN_CC1PU           7
+
+#define PRT_CC2PU           B
+#define PIN_CC2PU           1
+
+#define PRT_MCUnRST         C
+#define PIN_MCUnRST         6
 
 
 /// @internal helper macro for _CONCAT
