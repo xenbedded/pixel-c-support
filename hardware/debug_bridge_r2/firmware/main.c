@@ -24,13 +24,14 @@
 #include "vbus.h"
 #include <avr/interrupt.h>
 #include <util/atomic.h>
+#include <util/delay.h>
 
 
 static void set_host_mode(void);
 static void set_dev_mode(void);
 
-// Reset hubs for 500ms if the state changes. Stores the previous state.
-static void reset_hubs_on_change(enum vbus_mode mode);
+// Reset hubs and CC pins for 500ms if the state changes. Stores the previous state.
+static void reset_on_change(enum vbus_mode mode);
 
 int main(void)
 {
@@ -42,7 +43,7 @@ int main(void)
     for(;;) {
         enum vbus_mode mode = get_current_vbus_mode();
 
-        reset_hubs_on_change(mode);
+        reset_on_change(mode);
 
         switch(mode) {
         case VBUS_WAIT:
@@ -87,8 +88,8 @@ static void set_host_mode(void)
     set_usb_mux_normal();
     set_hub1_vbus(true);
     set_hub2_vbus(false);
-    pull_cc1(false);
-    pull_cc2(true);
+    pull_cc1(CC_OPEN);
+    pull_cc2(CC_DOWN);
 }
 
 
@@ -97,39 +98,21 @@ static void set_dev_mode(void)
     set_usb_mux_debug();
     set_hub1_vbus(false);
     set_hub2_vbus(true);
-    pull_cc1(true);
-    pull_cc2(true);
+    pull_cc1(CC_DOWN);
+    pull_cc2(CC_DOWN);
 }
 
 
-static void reset_hubs_on_change(enum vbus_mode mode)
+static void reset_on_change(enum vbus_mode mode)
 {
-    static const uint16_t hub_reset_duration = 500u; // Time in ms to hold hubs in reset
-
     static enum vbus_mode last_mode = VBUS_WAIT;
-    static uint16_t hub_reset_timestamp = 0;
-    static bool hub_reset = false;
-    static bool hub_reset_overflow = false;
-
-    uint16_t ticks = get_ticks();
 
     // Hold hubs in reset briefly if the state has changed
     if (mode != last_mode) {
         set_hub_reset(true);
-        hub_reset_timestamp = ticks;
-        hub_reset_overflow = (hub_reset_timestamp + hub_reset_duration < ticks);
-        hub_reset = true;
-        last_mode = mode;
-    } else if (hub_reset) {
-        bool done;
-        if (hub_reset_overflow) {
-            done = (ticks >= hub_reset_timestamp + hub_reset_duration) && (ticks < hub_reset_timestamp);
-        } else {
-            done = (ticks >= hub_reset_timestamp + hub_reset_duration);
-        }
-        if (done) {
-            set_hub_reset(false);
-            hub_reset = false;
-        }
+        pull_cc1(CC_MID);
+        pull_cc2(CC_MID);
+        _delay_ms(500);
+        set_hub_reset(false);
     }
 }

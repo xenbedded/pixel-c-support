@@ -55,8 +55,10 @@ void set_charge_disabled(void); ///< Disable charging from debug port to PixC
 bool is_charge_enabled(void);   ///< Return whether charging is enabled
 
 
-void pull_cc1(bool val);        ///< Pull down CC1 if true, else let it float
-void pull_cc2(bool val);        ///< Pull down CC2 if true, else let it float
+enum CC_PULL_TYPE { CC_OPEN, CC_DOWN, CC_UP, CC_MID };
+
+void pull_cc1(enum CC_PULL_TYPE val);    ///< Pull CC1 in the specified direction
+void pull_cc2(enum CC_PULL_TYPE val);    ///< Pull CC2 in the specified direction
 
 
 void set_usb_mux_debug(void);   ///< Set USB mux to debug mode (PixC is device)
