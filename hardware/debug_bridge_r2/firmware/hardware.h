@@ -43,7 +43,7 @@ uint16_t get_ticks(void);
 void init_adc(void (*callback)(uint16_t pixc, uint16_t dbg));
 
 /// Return ADC value for floating-point voltage
-#define ADC_VAL(voltage) ((uint16_t)(1023.0 * (voltage) / 6.6) & 0x3ffu)
+#define ADC_VAL(voltage) ((uint16_t)(1024.0 * (voltage) / 6.6) & 0x3ffu)
 
 void set_leds_host(void);       ///< Switch to "HOST" LED
 void set_leds_dev(void);        ///< Switch to "DEV" LED
