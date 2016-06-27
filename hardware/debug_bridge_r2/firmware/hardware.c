@@ -235,9 +235,15 @@ void set_hub2_vbus(bool val)
 static void (* volatile adc_callback)(uint16_t pixc, uint16_t dbg) = NULL;
 
 
+static void adc_muxsel(uint8_t mux)
+{
+    ADMUX = (1 << REFS0) | (mux & 0x0f);
+}
+
+
 void init_adc(void (*callback)(uint16_t pixc, uint16_t dbg))
 {
-    ADMUX = MUX_VBUS_PIXC_SENSE;    // Start on first input, ref = vcc
+    adc_muxsel(MUX_VBUS_PIXC_SENSE);    // Start on first input, ref = vcc
 
     // Clock is 8 MHz. Divide by 64 to get within the 50..200kHz range
     ADCSRA = (1 << ADEN) | (1 << ADIE) | (1 << ADPS2) | (1 << ADPS1);
@@ -262,12 +268,12 @@ ISR(ADC_vect)
     {
     case 0:
         adc_value_pixc = ADC;
-        ADMUX = MUX_VBUS_DBG_SENSE;
+        adc_muxsel(MUX_VBUS_DBG_SENSE);
         channel_id = 1;
         break;
     case 1:
         adc_value_dbg = ADC;
-        ADMUX = MUX_VBUS_PIXC_SENSE;
+        adc_muxsel(MUX_VBUS_PIXC_SENSE);
         channel_id = 0;
         if (adc_callback)
             adc_callback(adc_value_pixc, adc_value_dbg);
