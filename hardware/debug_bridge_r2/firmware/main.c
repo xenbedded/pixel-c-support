@@ -23,6 +23,7 @@
 #include "hardware.h"
 #include "vbus.h"
 #include <avr/interrupt.h>
+#include <avr/wdt.h>
 #include <util/atomic.h>
 #include <util/delay.h>
 
@@ -35,6 +36,7 @@ static void reset_on_change(enum vbus_mode mode);
 
 int main(void)
 {
+    wdt_disable();
     init_ports();
     init_tick_timer();
     init_adc(&vbus_adc_callback);
