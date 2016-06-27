@@ -117,4 +117,6 @@ static void reset_on_change(enum vbus_mode mode)
         _delay_ms(500);
         set_hub_reset(false);
     }
+
+    last_mode = mode;
 }
