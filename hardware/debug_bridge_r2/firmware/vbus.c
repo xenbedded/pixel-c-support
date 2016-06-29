@@ -37,7 +37,7 @@ static enum vbus_mode get_vbus_mode(uint16_t vbus_pixc, uint16_t vbus_dbg)
     bool pixc_valid = (vbus_pixc >= ADC_VAL(4.0));
     bool dbg_valid  = (vbus_dbg  >= ADC_VAL(4.0));
 
-    static const uint16_t adc_diode_min = ADC_VAL(0.45);
+    static const uint16_t adc_diode_min = ADC_VAL(0.25);
     static const uint16_t adc_diode_max = ADC_VAL(0.85);
 
     bool diode = (vbus_dbg > (vbus_pixc - adc_diode_max)) &&
