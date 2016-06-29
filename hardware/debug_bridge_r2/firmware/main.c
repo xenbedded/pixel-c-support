@@ -106,8 +106,6 @@ static void reset_on_change(enum vbus_mode mode)
     // Hold hubs in reset briefly if the state has changed
     if (mode != last_mode) {
         set_hub_reset(true);
-        pull_cc1(CC_MID);
-        pull_cc2(CC_MID);
         _delay_ms(500);
         set_hub_reset(false);
     }
