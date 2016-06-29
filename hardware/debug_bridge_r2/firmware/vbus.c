@@ -77,7 +77,7 @@ static enum vbus_mode get_vbus_mode(uint16_t vbus_pixc, uint16_t vbus_dbg)
 void vbus_adc_callback(uint16_t pixc, uint16_t dbg)
 {
     static enum vbus_mode last_mode = VBUS_NONE;
-    static const uint16_t debounce_top = 255u;
+    static const uint16_t debounce_top = 20u;
     static uint16_t debounce_count = 0u;
 
     // Get the vbus mode from the samples, then debounce it.
