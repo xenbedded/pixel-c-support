@@ -69,16 +69,6 @@ int main(void)
             break;
 
         case VBUS_DEBUG_ONLY:
-            // Blink LED
-            if (get_ticks() % 333 < 166) {
-                set_leds_dev();
-            } else {
-                set_leds_off();
-            }
-            set_charge_disabled();
-            set_dev_mode();
-            break;
-
         case VBUS_BOTH:
             set_leds_dev();
             set_charge_enabled();
