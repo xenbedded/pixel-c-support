@@ -42,6 +42,10 @@ int main(void)
     init_adc(&vbus_adc_callback);
     sei();
 
+    set_hub_reset(false);
+    set_charge_disabled();
+    set_host_mode();
+
     for(;;) {
         enum vbus_mode mode = get_current_vbus_mode();
 
