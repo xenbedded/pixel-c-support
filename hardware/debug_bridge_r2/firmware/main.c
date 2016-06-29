@@ -84,8 +84,8 @@ static void set_host_mode(void)
     set_usb_mux_normal();
     set_hub1_vbus(true);
     set_hub2_vbus(false);
-    pull_cc1(CC_OPEN);
-    pull_cc2(CC_DOWN);
+    pull_cc1(CC_DOWN);
+    pull_cc2(CC_OPEN);
 }
 
 
