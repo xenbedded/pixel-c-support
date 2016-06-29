@@ -13,7 +13,7 @@ F_CPU=8000000
 
 AVRDUDE_PROGRAMMER=atmelice_isp
 
-CFLAGS := -O2 -flto -g -Wall -Wextra -mmcu=${GCC_CHIP} -DF_CPU=${F_CPU}uL
+CFLAGS := -Og -flto -g -Wall -Wextra -mmcu=${GCC_CHIP} -DF_CPU=${F_CPU}uL -std=gnu11
 LDFLAGS :=
 
 .PHONY: all clean program fuses
@@ -22,6 +22,7 @@ all: disasm.txt
 
 fw.elf: ${OBJECTS}
 	${CC} ${CFLAGS} ${LDFLAGS} $^ -o $@
+	cp fw.elf pixc.elf
 	@echo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	${SIZE} $@
 	@echo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -43,4 +44,4 @@ program: fw.elf
 	avrdude -p ${AVRDUDE_CHIP} -c ${AVRDUDE_PROGRAMMER} -U flash:w:fw.elf
 
 clean:
-	rm -f ${OBJECTS} fw.elf disasm.txt
+	rm -f ${OBJECTS} fw.elf pixc.elf disasm.txt
