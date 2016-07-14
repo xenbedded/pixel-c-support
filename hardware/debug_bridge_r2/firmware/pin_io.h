@@ -58,7 +58,7 @@
 #define MUX_VBUS_DBG_SENSE  (4 << MUX0)
 
 #define PRT_CC1PD           B
-#define PIN_CC1PD           6
+#define PIN_CC1PD           7
 
 #define PRT_CC2PD           D
 #define PIN_CC2PD           5

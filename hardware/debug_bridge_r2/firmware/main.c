@@ -23,6 +23,7 @@
 #include "hardware.h"
 #include "vbus.h"
 #include <avr/interrupt.h>
+#include <avr/wdt.h>
 #include <util/atomic.h>
 #include <util/delay.h>
 
@@ -35,10 +36,15 @@ static void reset_on_change(enum vbus_mode mode);
 
 int main(void)
 {
+    wdt_disable();
     init_ports();
     init_tick_timer();
     init_adc(&vbus_adc_callback);
     sei();
+
+    set_hub_reset(false);
+    set_charge_disabled();
+    set_host_mode();
 
     for(;;) {
         enum vbus_mode mode = get_current_vbus_mode();
@@ -63,16 +69,6 @@ int main(void)
             break;
 
         case VBUS_DEBUG_ONLY:
-            // Blink LED
-            if (get_ticks() % 333 < 166) {
-                set_leds_dev();
-            } else {
-                set_leds_off();
-            }
-            set_charge_disabled();
-            set_dev_mode();
-            break;
-
         case VBUS_BOTH:
             set_leds_dev();
             set_charge_enabled();
@@ -88,8 +84,8 @@ static void set_host_mode(void)
     set_usb_mux_normal();
     set_hub1_vbus(true);
     set_hub2_vbus(false);
-    pull_cc1(CC_OPEN);
-    pull_cc2(CC_DOWN);
+    pull_cc1(CC_DOWN);
+    pull_cc2(CC_OPEN);
 }
 
 
@@ -110,9 +106,9 @@ static void reset_on_change(enum vbus_mode mode)
     // Hold hubs in reset briefly if the state has changed
     if (mode != last_mode) {
         set_hub_reset(true);
-        pull_cc1(CC_MID);
-        pull_cc2(CC_MID);
         _delay_ms(500);
         set_hub_reset(false);
     }
+
+    last_mode = mode;
 }
