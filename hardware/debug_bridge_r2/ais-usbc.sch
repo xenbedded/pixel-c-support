@@ -92,8 +92,8 @@ $Descr USLegal 14000 8500
 encoding utf-8
 Sheet 1 1
 Title "Pixel C Debug Adapter"
-Date "2016-06-03"
-Rev "2.0"
+Date "2016-07-06"
+Rev "2.1"
 Comp "AIS (MDS)"
 Comment1 "MIT license (see LICENSE.txt)"
 Comment2 ""
@@ -1694,8 +1694,8 @@ F 3 "" H 3100 2800 60  0000 C CNN
 	1    3100 2800
 	0    -1   -1   0   
 $EndComp
-Text Notes 2750 2500 0    50   ~ 0
-R26 shorted on PCB.\nCut trace to modify.
+Text Notes 2850 1200 0    50   ~ 0
+R25 shorted on PCB.\nCut trace to modify.
 $Comp
 L R-0805 R25
 U 1 1 575ED2CA
